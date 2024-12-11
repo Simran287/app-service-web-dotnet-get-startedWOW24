@@ -32,3 +32,16 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Visual Studio Enterprise'
+    appType: 'webApp'
+    appName: 'pul-yaml-johndoe28799'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
